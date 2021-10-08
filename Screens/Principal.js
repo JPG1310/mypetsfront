@@ -7,6 +7,7 @@ import Busca from './Busca';
 import Produtos from './Produtos';
 import Servicos from './Servicos';
 import Cadastrar from './Cadastrar';
+import CadastroServico from './CadastroServico';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,7 +16,7 @@ export default function Principal() {
     <Tab.Navigator
       initialRouteName="Busca"
       tabBarOptions={{
-        activeTintColor: '#e91e63',
+        activeTintColor: '#FF9100',
       }}
     >
       <Tab.Screen
@@ -34,7 +35,7 @@ export default function Principal() {
         options={{
           tabBarLabel: 'Animais',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="shopping" color={color} size={size} />
+            <MaterialCommunityIcons name="paw" color={color} size={size} />
           ),
         }}
       />
@@ -44,13 +45,13 @@ export default function Principal() {
         options={{
           tabBarLabel: 'Serviços',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="human-greeting" color={color} size={size} />
+            <MaterialCommunityIcons name="shopping" color={color} size={size} />
           ),
         }}
       />
           <Tab.Screen
         name="Cadastrar"
-        component={Cadastrar}
+        component={CadastroServico}
         options={{
           tabBarLabel: 'Cadastrar',
           tabBarIcon: ({ color, size }) => (
@@ -58,7 +59,7 @@ export default function Principal() {
           ),
         }}
       />
-      <Tab.Screen
+      <Tab.Screen 
         name="Perfil"
         component={Perfil}
         options={{

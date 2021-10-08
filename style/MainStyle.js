@@ -8,12 +8,39 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginLeft: 90,
     backgroundColor:"#32CD32"
+    
   },
   cancelButton: {
     backgroundColor: "#c00",
-    width: "50%",
+    width: "40%",
     marginTop: 10,
-    marginLeft: 90
+    marginLeft: 110,
+    fontFamily: "OpenSansCondensed-Light",
+    fontSize: 12,
+    textAlign: "center",
+    alignItems: "center",
+    paddingLeft:30,
+    paddingRight:30,
+    paddingTop: 11,
+    paddingBottom: 12,  
+    borderRadius: 50,
+    textTransform: 'uppercase',
+  },
+  cadastrobutton: {
+    backgroundColor: "#FF9100",
+    width: "40%",
+    marginTop: 10,
+    marginLeft: 110,
+    fontFamily: "OpenSansCondensed-Light",
+    fontSize: 12,
+    textAlign: "center",
+    alignItems: "center",
+    paddingLeft:30,
+    paddingRight:30,
+    paddingTop: 11,
+    paddingBottom: 12,  
+    borderRadius: 50,
+    textTransform: 'uppercase',
   },
   container: {
     flex: 1,
@@ -50,13 +77,28 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     flex:0.3,
-    fontFamily:"comic-sans",
+    fontFamily: "OpenSansCondensed-Light",
   },
   imageBack:{
+    width: 390,
+    height: 300,
+    marginTop: -171,
+  },
+  imageBack2:{
+    width: 390,
+    height: 300,
+    marginTop: 0,
+  },
+  titulo:{
+    fontFamily: "OpenSansCondensed-Light",
+    marginTop: -20,
+    marginBottom: 30,
+  },
+  /*imageBack:{
     width:260,
     height:260,
 
-  }
+  }*/
 
 });
 

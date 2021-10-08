@@ -6,6 +6,8 @@ import styles from '../style/MainStyle';
 import { TextInputMask } from 'react-native-masked-text'
 import usuarioService from '../services/UsuarioService';
 import { Alert } from 'react-native';
+import {Image} from 'react-native';
+
 
 
 export default function Cadastro ({navigation}) {
@@ -83,9 +85,12 @@ export default function Cadastro ({navigation}) {
     style={styles.container, specificStyle.specifcContainer}>
       <ScrollView style={{width: "100%"}}
       keyboardVerticalOffset={80}>
+
+      <Image source={require('../assets/Imagens/banner_cadastro.png')} style={styles.imageBack2}/>
         
-      <Text h3>  Cadastre-se </Text>
+      <Text h3 style={specificStyle.titulo}>  Cadastre-se </Text>
       
+      <View style={specificStyle.cont}> 
       <Input
       placeholder="E-mail"
       onChangeText={value => {
@@ -176,6 +181,7 @@ export default function Cadastro ({navigation}) {
   onPress={() => salvar()}
 />
 }
+</View>
 </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -187,16 +193,37 @@ const specificStyle = StyleSheet.create({
     textAlign: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor : "#fff",
-    padding: 10,
-    marginLeft:10,
-    marginRight:10
+    backgroundColor: '#FFF',
   },
   button:{
-    width:"100%",
+    width: 200,
     marginTop: 10,
-    alignItems:"center"
-    
+    marginBottom: 20,
+    fontSize: 12,
+    fontFamily: "OpenSansCondensed-Light",
+    textAlign:"center",
+    backgroundColor:"#FF9100",
+    alignItems:"center",
+    marginLeft: 85,
+    paddingTop: 11,
+    paddingBottom: 12,
+    borderRadius: 50,
+  },
+  imageBack:{
+    width: 380,
+    height: 300,
+    marginTop: 0,
+  },
+  titulo:{
+    fontFamily: "OpenSansCondensed-Light",
+    marginTop: -20,
+    marginBottom: 30,
+    textAlign: 'center',
+  },
+  cont:{
+    marginLeft: 10,
+    marginRight: 10,
   }
 })
+
 

@@ -72,15 +72,15 @@ useEffect(() => {
 
   return (
     <View style={styles.container, specificStyle.specifcContainer}>
-      <Image source={require('../assets/Imagens/dog.jpg')} style={styles.imageBack}/>
-
+     
       { isLoadingToken &&
-      <Text>Só um minutinho...</Text>
+      <Text style={styles.textStyle} h3>Só um minutinho...</Text>
       }
 
     { !isLoadingToken &&
     <>
-      <Text style={styles.textStyle} h3>Meu Pet Perfeito</Text>   
+     <Image source={require('../assets/Imagens/banner_cadastro.png')} style={styles.imageBack}/>
+      <Text style={styles.textStyle} h3 style={styles.titulo}>Login</Text>   
       <Input
       placeholder="E-mail"
       leftIcon={{ type: 'font-awesome', name: 'paw' }}
@@ -100,14 +100,14 @@ useEffect(() => {
 
   { !isLoading &&
   <Button
-  icon={
+  /*icon={
     <Icon
       name="check-circle"
       size={15}
       color="white"
     />
     
-  }
+  }*/
   
   title="Entrar"
   buttonStyle={specificStyle.button}
@@ -116,16 +116,16 @@ useEffect(() => {
 }
 
 <Button
-  icon={
+  /*icon={
     <Icon
       name="user"
       size={15}
       color="white"
     />
     
-  }
+  }*/
   
-  title="Cadastrar"
+  title="Sou um novo usuário"
   buttonStyle={specificStyle.button2}
   onPress={() => cadastrar ()}
 />
@@ -142,15 +142,50 @@ const specificStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#FFF',
-    marginRight:10,
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  title:{
+    fontFamily: 'OpenSansCondensed-Light',
   },
   button:{
+    margin: 0,
+    width: 200,
+    marginTop: 20,
+    fontFamily: "OpenSansCondensed-Light",
+    backgroundColor:"#FF9100",
+    fontSize: 12,
+    textAlign: "center",
+    alignItems: "center",
+    marginRight:0,
+    marginLeft:0,
+    paddingLeft:30,
+    paddingRight:30,
+    paddingTop: 11,
+    paddingBottom: 12,  
+    borderRadius: 50,
+    textTransform: 'uppercase',
+  },
+  button2:{
+    width: 200,
+    marginTop: 10,
+    fontSize: 12,
+    fontFamily: "OpenSansCondensed-Light",
+    textAlign:"center",
+    backgroundColor:"#FF9100",
+    alignItems:"center",
+    marginRight: 30,
+    marginLeft: 30,
+    paddingTop: 11,
+    paddingBottom: 12,
+    borderRadius: 50,
+  },
+  /*button:{
     width:"200%",
     marginTop: 20,
     textAlign:"left",
     alignItems:"center",
     justifyContent:"flex-start",
-    /*backgroundColor:"#000000a0",*/
     backgroundColor:"blue",
     marginRight:0,
     marginLeft:0,
@@ -158,8 +193,8 @@ const specificStyle = StyleSheet.create({
     paddingRight:23,
     fontWeight:"bold",  
 
-  },
-  button2:{
+  },*/
+  /*button2:{
     width:"100%",
     marginTop: 10,
     textAlign:"left",
@@ -169,14 +204,12 @@ const specificStyle = StyleSheet.create({
     marginRight:0,
     marginLeft:0,
 
-  },/* 
-  image:{
+  },*/
+  /*image:{
     flex:1,
     resizeMode: "cover",
     justifyContent: "center",
     width:"100%",
     height:"100%",
-
-
   }*/
 })
