@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Alert, Image, View} from 'react-native';
+import { Alert, Image, TouchableHighlight, View, ToastAndroid} from 'react-native';
 import { KeyboardAvoidingView, Platform, ScrollView,  StyleSheet } from 'react-native';
 import { Button, Input, Text } from 'react-native-elements';
-import Icon  from 'react-native-vector-icons/FontAwesome';
+import { Avatar } from 'react-native-paper';
+import { launchImageLibrary } from 'react-native-image-picker';
 import servicoService from '../services/ServicoService';
 import styles from '../style/MainStyle';
 
@@ -17,6 +18,8 @@ export default function CadastroServico({navigation}) {
   const [errorTitulo, setErrorTitulo] = useState(null)
   const [errorDescricao, setErrorDescricao] = useState(null)
   const [isLoading, setLoading] = useState(false)
+  const [Pic, SetPic] = useState(null)
+
 
   const validar = () =>{
     let error = false
@@ -69,6 +72,37 @@ function cancelar(){
   navigation.navigate("Busca")
 }
 
+const setToastMsg = msg => {
+  ToastAndroid.showWithGravity(msg, ToastAndroid.SHORT, ToastAndroid.CENTER);
+};
+
+const uploadImage = () => {
+  let options = {
+    mediaType: 'photo',
+    quality: 1,
+    includeBase64: true,
+  };
+
+  launchImageLibrary(options, response => {
+    if(response.didCancel){
+      setToastMsg('Cancelled image selection');
+    } else if ((response.errorCode == 'permission')) {
+      setToastMsg('permission not satisfied');
+    } else if ((response.errorCode == 'others')) {
+      setToastMsg(response.errorMessage);
+    } else if(response.assets[0].fileSize > 2097152) {
+     Alert.alert ('Maximum image size exceeded', 'Please choose image under 2 MB', [{text: 'OK'}],
+     );
+    } else {
+      SetPic(response.assets[0].base64);
+    }
+  });
+};
+
+const removeImage = () => {
+  SetPic('')
+  setToastMsg('Image removed');
+}
  
     return (
       <KeyboardAvoidingView
@@ -81,6 +115,41 @@ function cancelar(){
         <Text style={{textAlign: 'center', marginTop: 20, fontSize: 24, fontWeight: "bold"}}>Cadastrar Pet</Text>
 
       <View style={specificStyle.cont}>
+
+    <View style={specificStyle.centerContent}>
+      <TouchableHighlight
+      onPress={()=>alert('pressed')}
+      underlayColor='rgba(0,0,0,0)'>
+        <Avatar.Image
+        size={250}
+        source={{uri:'data:image/png;base64,'+Pic}}
+        />
+      </TouchableHighlight>
+    </View>
+    <View style={specificStyle.centerContent}>
+      <Button buttonStyle={specificStyle.button}
+       title="Escolher Imagem"
+       mode="contained" 
+       onPress={() => uploadImage()}>
+      </Button>
+      <Button buttonStyle={specificStyle.button} 
+       title="Remover Imagem"
+      mode="contained"
+      style={{marginLeft: 20}}
+      onPress={() => removeImage()}>
+      </Button>
+
+    </View>
+
+
+
+
+
+
+
+
+
+
     
     <Input style={{marginTop: 40}}
       placeholder="Nome"
@@ -133,6 +202,8 @@ function cancelar(){
       }}
       errorMessage={errorDescricao}
   />
+
+  
 
   { isLoading &&
   <Text>Carregando...</Text>
@@ -213,5 +284,10 @@ const specificStyle = StyleSheet.create({
   cont:{
     marginLeft: 10,
     marginRight: 10,
-  } 
+  },
+  centerContent: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 15,
+  }
 })

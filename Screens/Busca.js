@@ -1,12 +1,10 @@
 import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
-import * as React from 'react';
-import { TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { FlatList, TouchableOpacity } from 'react-native';
 import { View, StyleSheet, ScrollView, Image, TextInput} from 'react-native';
 import { Button, Text} from 'react-native-elements';
 import Icon  from 'react-native-vector-icons/FontAwesome';
-import Animals from '../assets/rsc/Component/Animals';
-import {useLinkProps, useNavigation} from '@react-navigation/native';
-
+import { useNavigation } from '@react-navigation/native';
 
 export default function Busca() {
   function Detail(){
@@ -18,8 +16,38 @@ export default function Busca() {
   }
 
   const navigation = useNavigation();
+
+  const [pets, setPets] = useState([])
+
+  useEffect(() => {
+    const axios = require('axios');
+
+    axios.get('http://192.168.0.19:3000/servico/cadastrar')
+    .then(function (response) {
+      setPets(response.data)
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+   
+  }, [])
+
+  const renderItem = ({ item }) => (
+    <Text>{item.id}</Text>
+
+  );
+
     return (
       <View style={styles.header}>
+
+        <FlatList 
+        data={pets}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        />
+
+
+
        
       <View style={styles.menu}>
       <Image source={require('../assets/Imagens/logo.png')} style={styles.logo}/>
@@ -74,6 +102,12 @@ export default function Busca() {
         onPress={() => Detail1 ()}
         />
         </View>
+
+        <View style={styles.caixa}>
+
+        </View>
+
+        
         
         <View style={{marginTop: 200}}></View>
 </ScrollView>   
