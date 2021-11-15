@@ -1,29 +1,79 @@
 import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
-import * as React from 'react';
-import { TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { FlatList, TouchableOpacity } from 'react-native';
 import { View, StyleSheet, ScrollView, Image, TextInput} from 'react-native';
 import { Button, Text} from 'react-native-elements';
 import Icon  from 'react-native-vector-icons/FontAwesome';
-import Animals from '../assets/rsc/Component/Animals';
-import {useLinkProps, useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import Config from '../util/Config';
+import servicoService from '../services/ServicoService';
 
 
 export default function Produtos() {
+  const navigation = useNavigation();
+
+  const [pets, setPets] = useState([])
+  const [isLoading, setLoading] = useState(false)
+
+  useEffect(() => {
+    servicoService.listar()
+    .then((response) => {
+      console.log(response.data)
+      setLoading(false)
+      setPets(response.data)
+    })
+    .catch((error) => {
+      setLoading(false)
+      console.log(error)
+    })
+   
+  }, [])
+
+  const renderItem = ({ item }) => (
+    <View style={styles.caixa}>
+        <Image
+          source={require('../assets/Imagens/dog1.jpg')}
+          style={styles.images}
+          resizemode="cover"
+        />
+        <Text style={{textAlign: 'center', fontSize: 20, marginTop: 20, fontWeight:'bold'}}>{item.titulo}</Text>
+        <Text style={{textAlign: 'left', marginLeft: 20, marginTop: 20}}>Idade: {item.idade}</Text>
+        <Text style={{textAlign: 'left', marginLeft: 20, marginTop: 8}}>Sexo: {item.sexo}</Text>
+        <Text style={{textAlign: 'left', marginLeft: 20, marginTop: 8}}>Raça: {item.raca}</Text>
+        <Text style={{textAlign: 'left', marginLeft: 20, marginTop: 8}}>Cidade: {item.cidade}</Text>
+        <Text style={{textAlign: 'left', marginLeft: 20, marginTop: 8}}>Descrição: {item.descricao}</Text>
+        <Button buttonStyle={styles.button}
+        title="Ver detalhes"
+        onPress={() => Detail1 ()}
+        />
+        </View>
+
+  );
+
     return (
       <View style={styles.header}>
 
-      <View style={styles.menu}>
+<View style={styles.menu}>
       <Image source={require('../assets/Imagens/logo.png')} style={styles.logo}/>
       <Text style={{fontSize: 18, marginLeft: 100, color: '#fff', marginTop: -32, fontWeight: "bold"}}>Meu Pet Perfeito</Text>
       </View>
 
+      <View style={styles.fundo}>
+      <Icon name='search' style={{fontSize:24, marginLeft:5}}/>
+      <TextInput style={styles.texto} placeholder="Procurar Pet"/>
+      </View>
+      <Text style={{textAlign: 'center', marginTop: 20, fontSize: 24, fontWeight: "bold"}}>Meus Animais</Text>
 
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text h4>Animais Cadastrados</Text>
-      </View>
-      </View>
-    );
+        <FlatList 
+        data={pets}
+        renderItem={renderItem}
+        keyExtractor={item => String(item.id)}
+        />
+</View>
+      
+  );
 }
+
 
 const styles = StyleSheet.create({
   image:{
@@ -127,3 +177,4 @@ const styles = StyleSheet.create({
     marginHorizontal:'30%',
   },
 })
+

@@ -5,6 +5,8 @@ import { View, StyleSheet, ScrollView, Image, TextInput} from 'react-native';
 import { Button, Text} from 'react-native-elements';
 import Icon  from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
+import Config from '../util/Config';
+import servicoService from '../services/ServicoService';
 
 export default function Busca() {
   function Detail(){
@@ -18,102 +20,72 @@ export default function Busca() {
   const navigation = useNavigation();
 
   const [pets, setPets] = useState([])
+  const [busca, setBusca] = useState('')
+  const [isLoading, setLoading] = useState(false)
 
   useEffect(() => {
-    const axios = require('axios');
-
-    axios.get('http://192.168.0.19:3000/servico/cadastrar')
-    .then(function (response) {
-      setPets(response.data)
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-   
+    buscar()
+  
   }, [])
 
+  const buscar = () => {
+    servicoService.listartodos(busca)
+    .then((response) => {
+      console.log(response.data)
+      setLoading(false)
+      setPets(response.data)
+    })
+    .catch((error) => {
+      setLoading(false)
+      console.log(error)
+    })
+  }
+
   const renderItem = ({ item }) => (
-    <Text>{item.id}</Text>
-
-  );
-
-    return (
-      <View style={styles.header}>
-
-        <FlatList 
-        data={pets}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-        />
-
-
-
-       
-      <View style={styles.menu}>
-      <Image source={require('../assets/Imagens/logo.png')} style={styles.logo}/>
-      <Text style={{fontSize: 18, marginLeft: 100, color: '#fff', marginTop: -32, fontWeight: "bold"}}>Meu Pet Perfeito</Text>
-      </View>
-
-      <View style={styles.fundo}>
-      <Icon name='search' style={{fontSize:24, marginLeft:5}}/>
-      <TextInput style={styles.texto} placeholder="Procurar Pet"/>
-      </View>
-      <Text style={{textAlign: 'center', marginTop: 20, fontSize: 24, fontWeight: "bold"}}>Pets para adoção</Text>
-      <View>
-      <ScrollView>
-      
-        <View style={styles.caixa}>
-        <Image
-          source={require('../assets/Imagens/cat3.jpg')}
-          style={styles.images}
-          resizemode="cover"
-        />
-        <Text style={{textAlign: 'center', fontSize: 20, marginTop: 20, fontWeight:'bold'}}>Fernandinho</Text>
-        <Text style={{textAlign: 'left', marginLeft: 20, marginTop: 20}}>Idade: 3 anos</Text>
-        <Text style={{textAlign: 'left', marginLeft: 20, marginTop: 8}}>Sexo: Macho</Text>
-        <Text style={{textAlign: 'left', marginLeft: 20, marginTop: 8}}>Porte: Pequeno</Text>
-        <Button buttonStyle={styles.button}
-        title="Ver detalhes"
-        style={styles.button}
-        onPress={() => Detail ()}
-        />
-        </View>
-        <Image
-          source={require('../assets/Imagens/anuncio.jpg')}
-          style={styles.anuncioimg}
-          resizemode="cover"
-        />
-        <View>
-
-        </View>
-
-        <View style={styles.caixa}>
+    <View style={styles.caixa}>
         <Image
           source={require('../assets/Imagens/dog1.jpg')}
           style={styles.images}
           resizemode="cover"
         />
-        <Text style={{textAlign: 'center', fontSize: 20, marginTop: 20, fontWeight:'bold'}}>Teberga</Text>
-        <Text style={{textAlign: 'left', marginLeft: 20, marginTop: 20}}>Idade: 2 anos</Text>
-        <Text style={{textAlign: 'left', marginLeft: 20, marginTop: 8}}>Sexo: Macho</Text>
-        <Text style={{textAlign: 'left', marginLeft: 20, marginTop: 8}}>Porte: Grande</Text>
+        <Text style={{textAlign: 'center', fontSize: 20, marginTop: 20, fontWeight:'bold'}}>{item.titulo}</Text>
+        <Text style={{textAlign: 'left', marginLeft: 20, marginTop: 20}}>Idade: {item.idade}</Text>
+        <Text style={{textAlign: 'left', marginLeft: 20, marginTop: 8}}>Sexo: {item.sexo}</Text>
+        <Text style={{textAlign: 'left', marginLeft: 20, marginTop: 8}}>Raça: {item.raca}</Text>
+        <Text style={{textAlign: 'left', marginLeft: 20, marginTop: 8}}>Cidade: {item.cidade}</Text>
+        <Text style={{textAlign: 'left', marginLeft: 20, marginTop: 8}}>Descrição: {item.descricao}</Text>
         <Button buttonStyle={styles.button}
         title="Ver detalhes"
         onPress={() => Detail1 ()}
         />
         </View>
 
-        <View style={styles.caixa}>
+  );
 
-        </View>
+    return (
+      <View style={styles.header}>
 
-        
-        
-        <View style={{marginTop: 200}}></View>
-</ScrollView>   
+<View style={styles.menu}>
+      <Image source={require('../assets/Imagens/logo.png')} style={styles.logo}/>
+      <Text style={{fontSize: 18, marginLeft: 100, color: '#fff', marginTop: -32, fontWeight: "bold"}}>Meu Pet Perfeito</Text>
+      </View>
 
-</View>
+      <View style={styles.fundo}>
+      <Icon name='search' style={{fontSize:24, marginLeft:5}}/>
+      <TextInput style={styles.texto} placeholder="Procurar Pet"
+      onChangeText={value => {
+        setBusca(value)
+      }}
+      onSubmitEditing = {() => buscar()}
+      />
+      </View>
+      <Text style={{textAlign: 'center', marginTop: 20, fontSize: 24, fontWeight: "bold"}}>Pets para adoção</Text>
 
+        <FlatList 
+        data={pets}
+        renderItem={renderItem}
+        keyExtractor={item => String(item.id)}
+        />
 </View>
       
   );

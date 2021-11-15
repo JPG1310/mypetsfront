@@ -57,7 +57,10 @@ export default function CadastroServico({navigation}) {
       setLoading(false)
       Alert.alert(response.data.mensagem)
       setTitulo(null)
-      setDescricao(null)
+      setCidade(null)
+      setRaca(null)
+      setIdade(null)
+      setSexo(null)
     })
     .catch((error) => {
       setLoading(false)
@@ -72,7 +75,7 @@ function cancelar(){
   navigation.navigate("Busca")
 }
 
-const setToastMsg = msg => {
+/*const setToastMsg = msg => {
   ToastAndroid.showWithGravity(msg, ToastAndroid.SHORT, ToastAndroid.CENTER);
 };
 
@@ -102,7 +105,7 @@ const uploadImage = () => {
 const removeImage = () => {
   SetPic('')
   setToastMsg('Image removed');
-}
+}*/
  
     return (
       <KeyboardAvoidingView
@@ -115,41 +118,6 @@ const removeImage = () => {
         <Text style={{textAlign: 'center', marginTop: 20, fontSize: 24, fontWeight: "bold"}}>Cadastrar Pet</Text>
 
       <View style={specificStyle.cont}>
-
-    <View style={specificStyle.centerContent}>
-      <TouchableHighlight
-      onPress={()=>alert('pressed')}
-      underlayColor='rgba(0,0,0,0)'>
-        <Avatar.Image
-        size={250}
-        source={{uri:'data:image/png;base64,'+Pic}}
-        />
-      </TouchableHighlight>
-    </View>
-    <View style={specificStyle.centerContent}>
-      <Button buttonStyle={specificStyle.button}
-       title="Escolher Imagem"
-       mode="contained" 
-       onPress={() => uploadImage()}>
-      </Button>
-      <Button buttonStyle={specificStyle.button} 
-       title="Remover Imagem"
-      mode="contained"
-      style={{marginLeft: 20}}
-      onPress={() => removeImage()}>
-      </Button>
-
-    </View>
-
-
-
-
-
-
-
-
-
-
     
     <Input style={{marginTop: 40}}
       placeholder="Nome"
@@ -157,6 +125,7 @@ const removeImage = () => {
         setTitulo(value)
         setErrorTitulo(null)
       }}
+      value={titulo}
       errorMessage={errorTitulo}
   />
 
@@ -166,6 +135,7 @@ const removeImage = () => {
         setCidade(value)
     
       }}
+      value={cidade}
      
   />
 
@@ -175,6 +145,7 @@ const removeImage = () => {
         setRaca(value)
     
       }}
+      value={raca}
      
   />
   
@@ -184,6 +155,7 @@ const removeImage = () => {
         setIdade(value)
     
       }}
+      value={idade}
       keyboardType="number-pad"   
   />
 
@@ -192,10 +164,12 @@ const removeImage = () => {
       onChangeText={value => {
         setSexo(value)
       }}  
+      value={sexo}
   />
 
 <Input
       placeholder="Descreva o animal"
+      value={descricao}
       onChangeText={value => {
         setDescricao(value)
         setErrorDescricao(null)
