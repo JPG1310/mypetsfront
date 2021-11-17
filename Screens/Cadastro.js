@@ -101,14 +101,14 @@ export default function Cadastro ({navigation}) {
       errorMessage={errorEmail}
   />
    <Input
-      placeholder="Nome"
+      placeholder="Nome/Nome da Empresa"
       onChangeText={value => setNome(value)}
       errorMessage={errorNome}
   />
 
 <View style={styles.containerMask}>
   <TextInputMask
-  placeholder="CPF"
+  placeholder="CPF/CNPJ"
   type={'cpf'}
   value={cpf}
   onChangeText={value => {

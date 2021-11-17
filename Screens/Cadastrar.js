@@ -15,6 +15,7 @@ function cadastrarProduto(){
 }
 
     return (
+      
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor:'#7B68EE'}}>
         <Text style={{fontSize: 25, fontWeight: 'bold', color: 'white', marginTop: "5%"}}>O que você quer cadastrar?</Text>
     <Button  buttonStyle={{backgroundColor:"orange", marginTop:"8%"}}

@@ -43,8 +43,14 @@ export default function Produtos() {
         <Text style={{textAlign: 'left', marginLeft: 20, marginTop: 8}}>Cidade: {item.cidade}</Text>
         <Text style={{textAlign: 'left', marginLeft: 20, marginTop: 8}}>Descrição: {item.descricao}</Text>
         <Button buttonStyle={styles.button}
-        title="Ver detalhes"
-        onPress={() => Detail1 ()}
+         icon={
+          <Icon
+            name="edit"
+            size={15}
+            color="white"
+          />
+        }
+        title="Editar"
         />
         </View>
 

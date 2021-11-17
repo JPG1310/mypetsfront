@@ -1,31 +1,51 @@
-import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
 import * as React from 'react';
-import { TouchableOpacity } from 'react-native';
-import { View, StyleSheet, ScrollView, Image, TextInput} from 'react-native';
-import { Button, Text} from 'react-native-elements';
+import { Alert, Image, ScrollView, TextInput } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Button, Text } from 'react-native-elements';
 import Icon  from 'react-native-vector-icons/FontAwesome';
-import Animals from '../assets/rsc/Component/Animals';
-import {useLinkProps, useNavigation} from '@react-navigation/native';
 
 export default function Servicos() {
   return (
+ 
     <View style={styles.header}>
-
     <View style={styles.menu}>
     <Image source={require('../assets/Imagens/logo.png')} style={styles.logo}/>
     <Text style={{fontSize: 18, marginLeft: 100, color: '#fff', marginTop: -32, fontWeight: "bold"}}>Meu Pet Perfeito</Text>
     </View>
-
     <View style={styles.fundo}>
       <Icon name='search' style={{fontSize:24, marginLeft:5}}/>
       <TextInput style={styles.texto} placeholder="Procurar Serviço"/>
       </View>
+      <ScrollView>
 
-
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: '5%', marginEnd: '5%' }}>
       <Text h4>Serviços de Parceiros</Text>
     </View>
+ 
+    <Image
+          source={require('../assets/Imagens/anuncio.jpg')}
+          style={styles.images}
+          resizemode="cover"
+        />
+        <Image
+          source={require('../assets/Imagens/anuncio2.jpg')}
+          style={styles.images}
+          resizemode="cover"
+        />
+        <Image
+          source={require('../assets/Imagens/anuncio3.jpg')}
+          style={styles.images}
+          resizemode="cover"
+        />
+        <Image
+          source={require('../assets/Imagens/anuncio4.png')}
+          style={styles.images}
+          resizemode="cover"
+        />
+       </ScrollView> 
     </View>
+    
+ 
   );
 }
 const styles = StyleSheet.create({
@@ -51,11 +71,11 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   images:{
-    width: 150,
-    height: 150,
-    borderRadius: 1000,
-    marginTop: 30,
-    marginLeft: 100,
+    width: "90%",
+    height: 140,
+    marginTop: 20,
+    marginLeft: "5%",
+   
   },
   anuncioimg:{
     width: '90%',

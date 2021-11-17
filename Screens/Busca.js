@@ -1,6 +1,6 @@
 import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { FlatList, TouchableOpacity } from 'react-native';
+import { Alert, FlatList, TouchableOpacity } from 'react-native';
 import { View, StyleSheet, ScrollView, Image, TextInput} from 'react-native';
 import { Button, Text} from 'react-native-elements';
 import Icon  from 'react-native-vector-icons/FontAwesome';
@@ -54,9 +54,31 @@ export default function Busca() {
         <Text style={{textAlign: 'left', marginLeft: 20, marginTop: 8}}>Raça: {item.raca}</Text>
         <Text style={{textAlign: 'left', marginLeft: 20, marginTop: 8}}>Cidade: {item.cidade}</Text>
         <Text style={{textAlign: 'left', marginLeft: 20, marginTop: 8}}>Descrição: {item.descricao}</Text>
+
         <Button buttonStyle={styles.button}
-        title="Ver detalhes"
-        onPress={() => Detail1 ()}
+         icon={
+          <Icon
+            name="paw"
+            size={15}
+            color="white"
+          />
+        }
+        title="ADOTAR"
+        onPress={() => {
+          Alert.alert(
+            "SOLICITAÇÃO DE ADOÇÃO ENVIADA",
+            "Sua solicitação foi enviada ao doador. Aguarde o contato.",
+            [
+              {
+                text: "Cancelar",
+                onPress: () => console.log("Cancel Pressed"),
+        
+              },
+              { text: "OK!", onPress: () => console.log("OK Pressed") }
+            ]
+          );
+        }}
+        /*onPress={() => Detail1 ()}*/
         />
         </View>
 
